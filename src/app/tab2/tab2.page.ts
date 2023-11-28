@@ -1,16 +1,31 @@
-import { Component } from '@angular/core';
-import { IonHeader, IonToolbar, IonTitle, IonContent } from '@ionic/angular/standalone';
+import { Component, inject } from '@angular/core';
 import { ExploreContainerComponent } from '../explore-container/explore-container.component';
+import { IonicModule } from '@ionic/angular';
+import { NoteService } from '../services/note.service';
 
 @Component({
   selector: 'app-tab2',
   templateUrl: 'tab2.page.html',
   styleUrls: ['tab2.page.scss'],
   standalone: true,
-  imports: [IonHeader, IonToolbar, IonTitle, IonContent, ExploreContainerComponent]
+  imports: [IonicModule, ExploreContainerComponent]
 })
 export class Tab2Page {
 
+  public noteS = inject(NoteService);
+
   constructor() {}
+
+  ionViewDidEnter(){
+    this.noteS.readAll();
+  }
+
+  editNote(){
+    
+  }
+
+  removeNote(){
+
+  }
 
 }
