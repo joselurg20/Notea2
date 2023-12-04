@@ -1,25 +1,44 @@
 <ion-header [translucent]="true">
-  <ion-toolbar>
+  <ion-toolbar color="primary">
     <ion-title>
-      Tab 2
+      Tareas
     </ion-title>
   </ion-toolbar>
 </ion-header>
 
 <ion-content [fullscreen]="true">
- <ion-list>
-  <ion-item-sliding>
-    <ion-item-options side="start">
-      <ion-item-option color="primary" src="assets/icons/pencil-outline.svg" style="zoom:1.5;"  (click)="editNote()"></ion-item-option>
-    </ion-item-options>
-
+  <form [formGroup]="form" (ngSubmit)="saveNote()">
     <ion-item>
-      <ion-label>Comprar pan</ion-label>
+      <ion-label>
+        Title
+      </ion-label>
+      <ion-input label="title" type="text" formControlName="title"></ion-input>
     </ion-item>
-
-    <ion-item-options side="end">
-      <ion-item-option color="danger" expandable src="assets/icons/trash-outline.svg" style="zoom: 1.5;" (click)="removeNote()"></ion-item-option>
-    </ion-item-options>
-  </ion-item-sliding>
- </ion-list>
+    <ion-item>
+      <ion-label>
+        Description
+      </ion-label>
+      <ion-textarea label="Description" formControlName="description"></ion-textarea>
+    </ion-item>
+    <ion-item>
+      <ion-label>
+        Date
+      </ion-label>
+      <ion-datetime-button datetime="datetime"></ion-datetime-button>
+      <ion-modal [keepContentsMounted]="true">
+        <ng-template>
+          <ion-datetime id="datetime"></ion-datetime>
+        </ng-template>
+      </ion-modal>
+    </ion-item>
+    <ion-toolbar>
+      <ion-button slot="start">
+        <ion-icon slot="icon-only" src="assets/icons/compass.svg"></ion-icon>
+      </ion-button>
+      <ion-button slot="end" (click)="takePic()">
+        <ion-icon slot="icon-only" src="assets/icons/image.svg"></ion-icon>
+      </ion-button>
+    </ion-toolbar>
+    <ion-button type="submit" expand="full" [disabled]="!form.valid">Submit</ion-button>
+  </form>
 </ion-content>
