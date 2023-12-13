@@ -1,8 +1,10 @@
 <ion-header [translucent]="true">
-  <ion-toolbar>
-    <ion-title>
-      Tab 1
-    </ion-title>
+  <ion-toolbar color="primary">
+
+    <ion-title>Notes</ion-title><!--<ion-avatar slot="end">
+      <img alt="Silhouette of a person's head" src="https://ionicframework.com/docs/img/demos/avatar.svg" />
+    </ion-avatar>-->
+
   </ion-toolbar>
 </ion-header>
 
@@ -11,21 +13,41 @@
     @for(note of noteS.notes$ | async;track note.key){
     <ion-item-sliding>
       <ion-item-options side="start">
-        <ion-item-option color="primary">
-          <ion-icon slot="start" src="assets/icons/create.svg" (click)="editNote()" style="zoom: 1.5;"></ion-icon>
+        <ion-item-option color="secondary">
+          <ion-icon slot="start" src="assets/icons/pencil-outline.svg" (click)="editNote()"
+            style="zoom: 1.5;"></ion-icon>
         </ion-item-option>
       </ion-item-options>
-  
-      <ion-item>
-        <ion-label>{{note.title}}</ion-label>
-      </ion-item>
-  
+     <!-- <ion-list>
+        <ion-reorder-group [disabled]="false" (ionItemReorder)="handleReorder($any($event))">-->
+   
+            <ion-accordion-group color="light">
+              <ion-accordion value="first" color="light">
+                <ion-item slot="header" color="light">
+                  <ion-label>{{note.title}}</ion-label>
+                </ion-item>
+                <div class="ion-padding" slot="content">
+                  <ion-label>{{note.description}}</ion-label>          
+                </div>
+                <div class="ion-padding" slot="content">
+                  <ion-label slot="start">{{note.date}}</ion-label>
+                  
+                </div>
+                <div class="ion-padding" slot="content"><ion-label>{{note.position}}</ion-label></div>
+                <div class="ion-padding" slot="content"><ion-label>{{note.img}}</ion-label></div>
+
+              </ion-accordion>
+            </ion-accordion-group>
+            
+    <!--    </ion-reorder-group>
+      </ion-list>-->
       <ion-item-options side="end">
         <ion-item-option color="danger" expandable>
-          <ion-icon slot="start" src="assets/icons/trash.svg" (click)="deleteNote()" style="zoom: 1.5;"></ion-icon>
+          <ion-icon slot="start" src="assets/icons/trash-outline.svg" (click)="deleteNote()"
+            style="zoom: 1.5;"></ion-icon>
         </ion-item-option>
       </ion-item-options>
     </ion-item-sliding>
-  }
+    }
   </ion-list>
 </ion-content>

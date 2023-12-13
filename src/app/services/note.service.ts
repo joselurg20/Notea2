@@ -12,6 +12,7 @@ import { Observable } from 'rxjs';
   providedIn: 'root'
 })
 export class NoteService {
+  [x: string]: any;
   myCollection: AngularFirestoreCollection<any>;
   myCollection_new:any;
   private fireStore: AngularFirestore = inject(AngularFirestore); //old

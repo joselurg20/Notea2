@@ -1,5 +1,5 @@
 import { Component,inject } from '@angular/core';
-import { IonicModule } from '@ionic/angular';
+import { IonicModule, ItemReorderEventDetail } from '@ionic/angular';
 import { NoteService } from '../services/note.service';
 import { Note } from '../model/note';
 import { CommonModule } from '@angular/common';
@@ -30,7 +30,6 @@ export class Tab1Page {
 
   }
   deleteNote(){
-
   }
-
+  
 }
