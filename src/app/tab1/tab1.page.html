@@ -1,20 +1,27 @@
 <ion-header [translucent]="true">
   <ion-toolbar color="primary">
 
-    <ion-title>Notes</ion-title><!--<ion-avatar slot="end">
-      <img alt="Silhouette of a person's head" src="https://ionicframework.com/docs/img/demos/avatar.svg" />
-    </ion-avatar>-->
-
+    <ion-title>Notes</ion-title>
   </ion-toolbar>
 </ion-header>
 
 <ion-content [fullscreen]="true">
+
+  <ion-refresher slot="fixed" (ionRefresh)="doRefresh($event)">
+    <ion-refresher-content
+      pullingText="Pull to refresh"
+      refreshingSpinner="circles"
+      refreshingText="Refreshing..."
+    ></ion-refresher-content>
+  </ion-refresher>
+
   <ion-list>
     @for(note of noteS.notes$ | async;track note.key){
-    <ion-item-sliding>
+    <ion-item-sliding (ionSwipe)="deleteNote($event, note)">
       <ion-item-options side="start">
+        
         <ion-item-option color="secondary">
-          <ion-icon slot="start" src="assets/icons/pencil-outline.svg" (click)="editNote()"
+          <ion-icon slot="start" src="assets/icons/pencil-outline.svg" (click)="editNote(note)"
             style="zoom: 1.5;"></ion-icon>
         </ion-item-option>
       </ion-item-options>
@@ -30,24 +37,43 @@
                   <ion-label>{{note.description}}</ion-label>          
                 </div>
                 <div class="ion-padding" slot="content">
-                  <ion-label slot="start">{{note.date}}</ion-label>
-                  
-                </div>
-                <div class="ion-padding" slot="content"><ion-label>{{note.position}}</ion-label></div>
-                <div class="ion-padding" slot="content"><ion-label>{{note.img}}</ion-label></div>
+                 <ion-datetime-button datetime="datetime"></ion-datetime-button>
+
+                 <ion-modal [keepContentsMounted]="true">
+                   <ng-template>
+                     <ion-datetime id="datetime" disabled="true">{{note.date}}</ion-datetime>
+                   </ng-template>
+                 </ion-modal>
+                 
+                 </div>
+                 
+                @if (note.position.latitude && note.position.longitude) {
+                  <div class="ion-padding" slot="content"  ><app-leflet [position]="note.position"></app-leflet></div>
+
+                }
+              
+                @if (note.img) {
+                  <div class="ion-padding" slot="content"><img [src]="'data:image/jpg;base64,'+ note.img" /></div>
+                }
 
               </ion-accordion>
-            </ion-accordion-group>
+            </ion-accordion-group> 
             
     <!--    </ion-reorder-group>
       </ion-list>-->
       <ion-item-options side="end">
         <ion-item-option color="danger" expandable>
-          <ion-icon slot="start" src="assets/icons/trash-outline.svg" (click)="deleteNote()"
+          <ion-icon slot="start" src="assets/icons/trash-outline.svg" (click)="deleteNote($event, note)"
             style="zoom: 1.5;"></ion-icon>
         </ion-item-option>
       </ion-item-options>
     </ion-item-sliding>
     }
   </ion-list>
+
+  @if(isInfiniteScrollAvailable){
+    <ion-infinite-scroll (ionInfinite)="loadMore($event)">
+      <ion-infinite-scroll-content loadingSpinner="bubbles" loadingText="Loading more notes..."></ion-infinite-scroll-content>
+    </ion-infinite-scroll>
+  }
 </ion-content>

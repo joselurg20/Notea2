@@ -31,14 +31,33 @@
         </ng-template>
       </ion-modal>
     </ion-item>
-    <ion-toolbar>
-      <ion-button slot="start">
-        <ion-icon slot="icon-only" (click)="takePosition()" src="assets/icons/compass-outline.svg" color="dark"></ion-icon>
+<ion-toolbar>
+      <ion-button slot="start" (click)="takePosition()">
+        <ion-icon slot="icon-only"  src="assets/icons/compass-outline.svg" color="dark">posiscion</ion-icon>
       </ion-button>
+    
+
+
       <ion-button slot="end" (click)="takePic()">
         <ion-icon slot="icon-only" src="assets/icons/image-outline.svg" color="dark"></ion-icon>
       </ion-button>
     </ion-toolbar>
     <ion-button type="submit" expand="block" [disabled]="!form.valid">Submit</ion-button>
+
+    @if (this.rutaImagenTomada) {
+      <ion-card>
+        <img [src]="'data:image/jpg;base64,'+ rutaImagenTomada" style="width: 100px; height: auto; border: 10px;" />
+        <ion-button expand="block" color="danger" (click)="deletePic()">Delete the picture<ion-icon src="assets/icons/trash-outline.svg"></ion-icon></ion-button>
+      </ion-card>
+    }
+
+  @if(this.position){
+      <ion-card>
+        <ion-button expand="block" color="danger" (click)="clearLocation()">
+          <ion-icon slot="start" src="assets/icons/trash-outline.svg"></ion-icon>
+          Delete the location
+        </ion-button></ion-card>
+  }    
+
   </form>
 </ion-content>

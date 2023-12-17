@@ -1,0 +1,51 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title class="header-title">Edit Note</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-item class="form-item">
+    <ion-label>Title</ion-label>
+    <ion-input [(ngModel)]="note.title" class="form-input"></ion-input>
+  </ion-item>
+
+  <ion-item class="form-item">
+    <ion-label>Description</ion-label>
+    <ion-textarea [(ngModel)]="note.description" class="form-textarea"></ion-textarea>
+
+  </ion-item>
+
+  <ion-item>
+
+    <ion-datetime-button datetime="datetime"></ion-datetime-button>
+  <ion-modal [keepContentsMounted]="true">
+    <ng-template>
+      <ion-datetime id="datetime" disabled="true">{{note.date}}</ion-datetime>
+    </ng-template>
+  </ion-modal>
+  </ion-item>
+
+  <ion-item>
+    @if (note.img) {
+      <img [src]="'data:image/jpg;base64,'+ note.img" style="width: 100px; height: auto; border: 10px;" />
+      <ion-button expand="block" color="danger" (click)="deletePic()">Delete the picture
+        <ion-icon src="assets/icons/trash-outline.svg"></ion-icon>
+      </ion-button>
+    }
+  </ion-item>
+
+  <ion-item>
+
+    @if (note.position.latitude && note.position.longitude) {
+      <div class="ion-padding" slot="content"><app-leflet [position]="note.position"></app-leflet></div>
+    }
+  </ion-item>
+
+
+  
+  
+
+  <ion-button expand="full" (click)="saveChanges()" class="form-button">Save</ion-button>
+  <ion-button expand="full" (click)="close()" class="form-button">Close</ion-button>
+</ion-content>

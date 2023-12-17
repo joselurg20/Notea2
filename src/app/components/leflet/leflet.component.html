@@ -1,0 +1,17 @@
+<!-- leaflet.component.html -->
+<ion-header [translucent]="true">
+  <ion-toolbar color="primary">
+    <ion-title>
+      Map
+    </ion-title>
+    <ion-buttons slot="end">
+      <ion-button (click)="closeModal()">
+        <ion-icon slot="icon-only" name="close"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+  <div id="leaflet-map" style="height: 100%;"></div>
+</ion-content>
